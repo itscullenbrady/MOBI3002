@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SensorAssignment</string>
+    <string name="mix">Mix</string>
+    <string name="clear" />
+    <string name="Clear">clear</string>
+    <string name="ingredent_disription">Ingredent disription</string>
+    <string name="mixture_discription">Mixture discription</string>
+    <string name="mixture_description">Mixture Description</string>
+    <string name="ingredient_description">Ingredient Description</string>
+</resources>
