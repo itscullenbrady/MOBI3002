@@ -11,9 +11,9 @@ class IngredientClickListener(
     private val onIngredientSelected: (Int) -> Unit
 ) : View.OnClickListener {
 
-    private val dbHelper: DatabaseHelper = DatabaseHelper(context)
+    private val dbHelper = DatabaseHelper(context)
 
-    override fun onClick(v: View?) {
+    override fun onClick(view: View?) {
         val description = dbHelper.getIngredientDescription(ingredientName)
         flowersTextView.text = description
         val ingredientId = dbHelper.getIngredientId(ingredientName)

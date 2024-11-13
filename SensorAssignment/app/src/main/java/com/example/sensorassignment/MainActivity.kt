@@ -33,19 +33,19 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-        val rosemaryButton: ImageButton = findViewById(R.id.rosemaryButton)
+        val rosemaryButton = findViewById<ImageButton>(R.id.rosemaryButton)
         rosemaryButton.setOnClickListener(IngredientClickListener(this, "rosemary", flowersTextView, ::onIngredientSelected))
 
-        val belladonnaButton: ImageButton = findViewById(R.id.belladonnaButton)
+        val belladonnaButton = findViewById<ImageButton>(R.id.belladonnaButton)
         belladonnaButton.setOnClickListener(IngredientClickListener(this, "belladonna (deadly nightshade)", flowersTextView, ::onIngredientSelected))
 
-        val yarrowButton: ImageButton = findViewById(R.id.yarrowButton)
+        val yarrowButton = findViewById<ImageButton>(R.id.yarrowButton)
         yarrowButton.setOnClickListener(IngredientClickListener(this, "yarrow", flowersTextView, ::onIngredientSelected))
 
-        val valerianButton: ImageButton = findViewById(R.id.valerianButton)
+        val valerianButton = findViewById<ImageButton>(R.id.valerianButton)
         valerianButton.setOnClickListener(IngredientClickListener(this, "valerian root", flowersTextView, ::onIngredientSelected))
 
-        val mixButton: Button = findViewById(R.id.mixButton)
+        val mixButton = findViewById<Button>(R.id.mixButton)
         mixButton.setOnClickListener {
             if (selectedIngredientIds.size == 2) {
                 Toast.makeText(this, "Shake the device", Toast.LENGTH_SHORT).show()
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             }
         }
 
-        val clearButton: Button = findViewById(R.id.clearButton)
+        val clearButton = findViewById<Button>(R.id.clearButton)
         clearButton.setOnClickListener {
             clearSelectedIngredients()
         }
@@ -88,12 +88,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             val z = event.values[2]
 
             val acceleration = Math.sqrt((x * x + y * y + z * z).toDouble()).toFloat()
-            if (acceleration > 12) { // Adjust the threshold as needed
-                if (!isShakeDetected) {
-                    isShakeDetected = true
-                    sensorManager.unregisterListener(this)
-                    checkForMixture()
-                    Toast.makeText(this, "Mixture Complete", Toast.LENGTH_SHORT).show()
+            when {
+                acceleration > 12 -> {
+                    if (!isShakeDetected) {
+                        isShakeDetected = true
+                        sensorManager.unregisterListener(this)
+                        checkForMixture()
+                        Toast.makeText(this, "Mixture Complete", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

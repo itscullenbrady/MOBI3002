@@ -19,9 +19,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         onCreate(db)
     }
 
-    fun getIngredientDescription(name: String): String {
+    fun getIngredientDescription(ingredientName: String): String {
         val db = this.readableDatabase
-        val cursor = db.rawQuery("SELECT description FROM Ingredients WHERE name = ?", arrayOf(name))
+        val cursor = db.rawQuery("SELECT description FROM Ingredients WHERE name = ?", arrayOf(ingredientName))
         var description = ""
         if (cursor.moveToFirst()) {
             description = cursor.getString(cursor.getColumnIndexOrThrow("description"))
@@ -30,9 +30,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return description
     }
 
-    fun getIngredientId(name: String): Int {
+    fun getIngredientId(ingredientName: String): Int {
         val db = this.readableDatabase
-        val cursor = db.rawQuery("SELECT id FROM Ingredients WHERE name = ?", arrayOf(name))
+        val cursor = db.rawQuery("SELECT id FROM Ingredients WHERE name = ?", arrayOf(ingredientName))
         var id = -1
         if (cursor.moveToFirst()) {
             id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
@@ -41,11 +41,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return id
     }
 
-    fun getMixtureDescription(id1: Int, id2: Int): String? {
+    fun getMixtureDescription(ingredientId1: Int, ingredientId2: Int): String? {
         val db = this.readableDatabase
         val cursor = db.rawQuery(
             "SELECT description FROM Mixtures WHERE (ingredient1_id = ? AND ingredient2_id = ?) OR (ingredient1_id = ? AND ingredient2_id = ?)",
-            arrayOf(id1.toString(), id2.toString(), id2.toString(), id1.toString())
+            arrayOf(ingredientId1.toString(), ingredientId2.toString(), ingredientId2.toString(), ingredientId1.toString())
         )
         var description: String? = null
         if (cursor.moveToFirst()) {
@@ -90,16 +90,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             INSERT INTO Mixtures (ingredient1_id, ingredient2_id, description) VALUES
             (1, 3, 'a soothing tincture, traditionally brewed to ease the mind and promote deep, restful sleep. said to help with relaxation and recovery from the day’s toils.'),
             (3, 1, 'a soothing tincture, traditionally brewed to ease the mind and promote deep, restful sleep. said to help with relaxation and recovery from the day’s toils.'),
-    
+
             (2, 4, 'a precise and careful blend, used only sparingly, believed to aid in muscle relaxation and focus. historically, this mixture was applied by healers to relieve tension while keeping the mind alert.'),
             (4, 2, 'a precise and careful blend, used only sparingly, believed to aid in muscle relaxation and focus. historically, this mixture was applied by healers to relieve tension while keeping the mind alert.'),
-            
+
             (3, 4, 'a bright, invigorating blend, thought to enhance clarity and support recovery. known among herbalists as a remedy for lingering fatigue, it’s also said to sharpen memory and concentration.'),
             (4, 3, 'a bright, invigorating blend, thought to enhance clarity and support recovery. known among herbalists as a remedy for lingering fatigue, it’s also said to sharpen memory and concentration.'),
-    
+
             (1, 2, 'a rare combination, used in moderation to soothe pain and promote calmness. historically, it was prepared with caution, providing comfort in small doses when relief was needed most.'),
             (2, 1, 'a rare combination, used in moderation to soothe pain and promote calmness. historically, it was prepared with caution, providing comfort in small doses when relief was needed most.');
-
-            """
+        """
     }
 }
