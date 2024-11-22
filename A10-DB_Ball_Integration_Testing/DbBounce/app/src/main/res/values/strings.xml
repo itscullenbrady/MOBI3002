@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">DbBounceScratch</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string-array name="database_options">
+        <item>Database 1</item>
+        <item>Database 2</item>
+        <item>Database 3</item>
+    </string-array>
+
+
+    <string name="Clean" />
+    <string name="clean">Clean</string>
+    <string name="create">Create</string>
+    <string name="save_to_db">Save to DB</string>
+</resources>
